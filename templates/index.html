@@ -12,5 +12,13 @@
       <input type="text" name="folder" placeholder="اسم المجلد (اختياري)" />
       <button type="submit">إرسال إلى البوت</button>
     </form>
+    <p id="status"></p>
+    <script>
+      const form = document.querySelector("form");
+      form.addEventListener("submit", () => {
+        document.getElementById("status").innerText =
+          "📡 جاري الإرسال إلى البوت...";
+      });
+    </script>
   </body>
 </html>

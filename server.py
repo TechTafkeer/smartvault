@@ -32,18 +32,24 @@ def index():
 
 @app.route("/upload", methods=["POST"])
 def upload():
-    file = request.files["file"]
+    files = request.files.getlist("file")
     folder = request.form.get("folder", "عام")
-    filename = file.filename
-    filepath = os.path.join("uploads", filename)
-    file.save(filepath)
+    os.makedirs("uploads", exist_ok=True)
 
-    # إرسال الملف إلى البوت
-    files = {"document": open(filepath, "rb")}
-    data = {
-        "chat_id": CHAT_ID,
-        "caption": f"📁 {folder} | 📄 {filename}",
-    }
-    requests.post(f"https://api.telegram.org/bot{BOT_TOKEN}/sendDocument", data=data, files=files)
+    for file in files:
+        filename = file.filename
+        filepath = os.path.join("uploads", filename)
+        file.save(filepath)
 
-    return "تم الإرسال بنجاح"
+        # إرسال الملف إلى البوت
+        tg_files = {"document": open(filepath, "rb")}
+        data = {
+            "chat_id": CHAT_ID,
+            "caption": f"📁 {folder} | 📄 {filename}",
+        }
+        requests.post(f"https://api.telegram.org/bot{BOT_TOKEN}/sendDocument", data=data, files=tg_files)
+
+    return "✅ تم إرسال جميع الملفات بنجاح"
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
