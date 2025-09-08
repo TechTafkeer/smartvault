@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ar">
+  <head>
+    <meta charset="UTF-8" />
+    <title>أرشيفي الذكي</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <h2>📤 اختر ملفًا لحفظه في البوت</h2>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+      <input type="file" name="file" required />
+      <input type="text" name="folder" placeholder="اسم المجلد (اختياري)" />
+      <button type="submit">إرسال إلى البوت</button>
+    </form>
+  </body>
+</html>
