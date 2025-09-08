@@ -21,8 +21,10 @@ def send_to_email(filepath, filename):
 #اخر الارسال للسحابه 
 
 app = Flask(__name__)
-BOT_TOKEN = "توكن البوت هنا"
-CHAT_ID = "معرّف المستخدم أو القناة"
+import os
+
+BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
 @app.route("/")
 def index():
